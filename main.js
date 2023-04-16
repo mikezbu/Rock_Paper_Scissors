@@ -1,9 +1,9 @@
-//Mike Bu's Rock Paper Scissors Game
+//Mike Bu's Rock Paper Scissor Game
 
 //SETUP RULES
 
 let playerScore = 0; //starts scores off at 0
-let computerScore = 0;
+let computerScore= 0;
 let winner = '';
 
 function round(playerChoice, computerChoice)  {
@@ -25,7 +25,6 @@ function round(playerChoice, computerChoice)  {
             computerScore++;
             winner = 'computer';
     }
-    updateScoreMessage(roundWinner, playerSelection, computerSelection)
 }
 
 function getComputerChoice()    {
@@ -65,22 +64,45 @@ const restartButton = document.getElementById('restartButton')
 rockButton.addEventListener('click', () => handleClick('rock'))
 paperButton.addEventListener('click', () => handleClick('paper'))
 scissorsButton.addEventListener('click', () => handleClick('scissors'))
+overlay.addEventListener('click', () => closeEndGameModel)
 restartButton.addEventListener('click', () => restartGame)
-overlay.addEventListener('click', () => closeEndgameModel)
 
-function handleClick(playerSelection)  {
-    if(gameOver())    {
-        openEndgameModel()
-        setFinalMessage()
-        return
-    }
+function capitalizeFirstLetter(string)  {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+}
 
-    const computerSelection = getRandomChoice()
-    playRound(playerSelection, computerSelection)
-    updateScore()
+function openEndgameModel() {
+    endgameModel.classList.add('active')
+    overlay.classList.add('active')
+  }
+  
+function closeEndgameModel() {
+    endgameModel.classList.remove('active')
+    overlay.classList.remove('active')
+  }
 
-    if(gameOver())    {
-        openEndgameModel()
+function setFinalMessage() {
+    return playerScore > computerScore
+      ? (endgameMsg.textContent = 'You won!')
+      : (endgameMsg.textContent = 'You lost...')
+  }
+  
+function restartGame() {
+    playerScore = 0
+    computerScore = 0
+    scoreInfo.textContent = 'Choose rock, paper, or scissors!'
+    scoreMessage.textContent = 'First to score 5 points wins the game!'
+    playerScorePara.textContent = 'Player: 0'
+    computerScorePara.textContent = 'Computer: 0'
+    playerSign.textContent = 'PLAYER'
+    computerSign.textContent = 'COMPUTER'
+    endgameModal.classList.remove('active')
+    overlay.classList.remove('active')
+  }
+
+function handleClick()  {
+    if(gameOver)    {
+        openEndGameModel()
         setFinalMessage()
     }
 }
@@ -104,7 +126,7 @@ function updateChoices(playerChoice, computerChoice)    {
     }
 }
 
-function updateScore()    {
+function endScreen()    {
     if (roundWinner === 'tie')  {
         scoreInfo.textContent = "It's a tie!"
     }   else if (roundWinner === 'player')    {
@@ -133,36 +155,3 @@ function updateScoreMessage(winner, playerSelection, computerSelection) {
         return
     }
 }
-
-function capitalizeFirstLetter(string)  {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
-}
-
-function openEndgameModel() {
-    endgameModel.classList.add('active')
-    overlay.classList.add('active')
-  }
-  
-function closeEndgameModel() {
-    endgameModel.classList.remove('active')
-    overlay.classList.remove('active')
-  }
-
-function setFinalMessage() {
-    return playerScore > computerScore
-      ? (endgameMsg.textContent = 'You won!')
-      : (endgameMsg.textContent = 'You lost...')
-  }
-
-function restartGame() {
-    playerScore = 0
-    computerScore = 0
-    scoreInfo.textContent = 'Choose rock, paper, or scissors!'
-    scoreMessage.textContent = 'First to score 5 points wins the game!'
-    playerScorePara.textContent = 'Player: 0'
-    computerScorePara.textContent = 'Computer: 0'
-    playerSign.textContent = 'PLAYER'
-    computerSign.textContent = 'COMPUTER'
-    endgameModal.classList.remove('active')
-    overlay.classList.remove('active')
-  }
