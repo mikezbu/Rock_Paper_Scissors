@@ -5,3 +5,5 @@ This is a web browser game where the user plays Rock Paper Scissors against the 
 This application was built using JavaScript and React framework for the internal calculations of which player wins. For the website, HTML5 and Internal/Embedded CSS  were used to create the infrastructure and styling of the site, respectively.
 
 This is playable in the website here with no downloads necessary: https://mikezbu.github.io/Rock_Paper_Scissors/
+
+It is able to be played multiple times in the browser.
